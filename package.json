@@ -12,7 +12,7 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -20,6 +20,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "example:hello": "node examples/01-hola-node/index.js",
-    "example:callstack": "node examples/02-call-stack/index.js"
+    "example:callstack": "node examples/02-call-stack/index.js",
+    "example:async": "node examples/03-asincronia/index.js"
   }
 }
