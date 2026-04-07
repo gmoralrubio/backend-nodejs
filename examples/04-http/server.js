@@ -39,7 +39,7 @@ const server = http.createServer(async (req, res) => {
       task => `<li>#${task.id} - ${task.title} - ${task.done ? '[x]' : '[ ]'}`,
     );
     res.end(
-      renderPage({
+      await renderPage({
         title: 'Tasks',
         content: `<ul>${htmlTasks}</ul>`,
       }),
@@ -51,7 +51,7 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'GET' && url.pathname === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(
-      renderPage({
+      await renderPage({
         title: 'Server HTTP básico',
         content:
           '<p>Este ejemplo ya respira web SSR: una ruta HTML, una lista HTML y una ruta de health</p>',
