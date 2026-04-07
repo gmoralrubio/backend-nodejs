@@ -3,37 +3,19 @@
 // Cuando importo librerias, nombro el nombre del paquete o libreria
 // Si importamos sin llaves, es porque se exporta como default
 import http from 'node:http';
+
 // Cuando importamos modulos internos de nuestra aplicación,
 // tenemos que definir la ruta, de forma absoluta o relativa
 // Si importamos con llaves, el modulo NO se exporta como default
-import { renderPage } from './renderUtils.js';
 import { PORT, HOST } from './config.js';
-
-const tasks = [
-  {
-    id: 1,
-    title: 'Preparar la clase de asincronia',
-    done: false,
-  },
-  {
-    id: 2,
-    title: 'Revisar los ejemplos de fs/promises',
-    done: true,
-  },
-  {
-    id: 3,
-    title: 'Explicar Promise.all en directo',
-    done: false,
-  },
-];
+import { renderPage } from './renderUtils.js';
+import { getTasks } from './tasksRepository.js';
 
 // createServer recibe un callback que recibe dos parámetros
 // request, objeto de peticion
 // response, objeto de respuesta
-const server = http.createServer((req, res) => {
-  // console.log(req.headers);
-  // console.log(req.url);
-
+// hacemos el callback asincrono ya que dentro consumimos las tareas
+const server = http.createServer(async (req, res) => {
   // si no recibimos url, asumimos que es root
   const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
 
@@ -50,6 +32,9 @@ const server = http.createServer((req, res) => {
   // Esta lista es dinámica
   if (req.method === 'GET' && url.pathname === '/tasks') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+
+    // Esperamos a recibir las tasks
+    const tasks = await getTasks();
     const htmlTasks = tasks.map(
       task => `<li>#${task.id} - ${task.title} - ${task.done ? '[x]' : '[ ]'}`,
     );

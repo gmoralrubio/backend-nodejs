@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Preparar la clase de asincronia",
+    "done": true
+  },
+  {
+    "id": 2,
+    "title": "Revisar los ejemplos de fs/promises",
+    "done": true
+  },
+  {
+    "id": 3,
+    "title": "Explicar Promise.all en directo",
+    "done": false
+  }
+]
