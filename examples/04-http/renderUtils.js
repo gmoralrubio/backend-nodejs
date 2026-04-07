@@ -18,7 +18,14 @@ export async function renderPage({ title, content }) {
         <a href="/tasks">Tasks (${pendingTasks})</a>
         <a href="/health">Health</a>
       </nav>
-      <h1>${title}</h1>
+      <div>
+        <h1>${title}</h1>
+        <ul style="display:flex; gap: 1rem; list-style: none;">
+          <li><a href="/tasks?status=pending">Pending</a></li>
+          <li><a href="/tasks?status=done">Done</a></li>
+          <li><a href="/tasks?status=all">All</a></li>
+        <ul>
+      </div>
       ${content}
     </body>
     </html>
