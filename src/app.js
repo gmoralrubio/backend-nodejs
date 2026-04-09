@@ -1,6 +1,8 @@
 // importamos el modulo
 import express from 'express'
 
+// En app.js inicializamos SOLO la app de express
+
 // Creamos la aplicacion
 const app = express()
 
