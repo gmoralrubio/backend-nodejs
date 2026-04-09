@@ -73,9 +73,6 @@ const server = http.createServer(async (req, res) => {
       )
       return
     } catch (exception) {
-      // TODO: Captura de errores
-      // Debemos capturar un posible error en json
-      // Devolver un error 500 (error de servidor)
       console.log(exception)
       error = true
     }
@@ -98,7 +95,9 @@ const server = http.createServer(async (req, res) => {
       error = true
     }
   }
-
+  // Captura de errores en cualquier bloque anterior
+  // Debemos capturar un posible error en json
+  // Devolver un error 500 (error de servidor)
   if (error) {
     res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' })
     res.end('Internal Server Error')

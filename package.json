@@ -13,7 +13,7 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "index.js",
+  "main": "src/app.js",
   "directories": {
     "doc": "docs"
   },
@@ -22,9 +22,13 @@
     "example:hello": "node examples/01-hola-node/index.js",
     "example:callstack": "node examples/02-call-stack/index.js",
     "example:async": "node examples/03-asincronia/index.js",
-    "example:http": "nodemon examples/04-http/server.js"
+    "example:http": "nodemon examples/04-http/server.js",
+    "dev": "nodemon src/app.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }
