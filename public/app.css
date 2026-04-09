@@ -1,0 +1,27 @@
+body {
+  background: #f8f9fa;
+  font-family: sans-serif;
+  max-width: 48rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.hero-card {
+  background:
+    linear-gradient(135deg, rgba(13, 110, 253, 0.1), rgba(13, 202, 240, 0.08)), #ffffff;
+}
+
+.task-card {
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.08);
+}
+
+.auth-card {
+  max-width: 520px;
+}

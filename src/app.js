@@ -21,7 +21,6 @@ console.log(import.meta.url) // Lleva el file//
 app.use(express.urlencoded({ extended: true }))
 // Middleware para usar archivos estaticos
 app.use(express.static(join(appDir, '../public'))) // Crea la ruta a /public
-
 // morgan es un middleware de terceros para logs
 app.use(morgan('tiny'))
 
