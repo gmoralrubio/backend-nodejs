@@ -72,26 +72,31 @@ const server = http.createServer(async (req, res) => {
         }),
       )
       return
-    } catch (error) {
+    } catch (exception) {
       // TODO: Captura de errores
       // Debemos capturar un posible error en json
       // Devolver un error 500 (error de servidor)
-      console.log(error)
+      console.log(exception)
       error = true
     }
   }
 
   // 1. En / devolver un contenido legible (HTML)
   if (req.method === 'GET' && url.pathname === '/') {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
-    res.end(
-      await renderPage({
-        title: 'Server HTTP básico',
-        content:
-          '<p>Este ejemplo ya respira web SSR: una ruta HTML, una lista HTML y una ruta de health</p>',
-      }),
-    )
-    return
+    try {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+      res.end(
+        await renderPage({
+          title: 'Server HTTP básico',
+          content:
+            '<p>Este ejemplo ya respira web SSR: una ruta HTML, una lista HTML y una ruta de health</p>',
+        }),
+      )
+      return
+    } catch (exception) {
+      console.log(exception)
+      error = true
+    }
   }
 
   if (error) {
