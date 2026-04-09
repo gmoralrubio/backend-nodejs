@@ -23,7 +23,7 @@
     "example:callstack": "node examples/02-call-stack/index.js",
     "example:async": "node examples/03-asincronia/index.js",
     "example:http": "nodemon examples/04-http/server.js",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/bin/www.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
