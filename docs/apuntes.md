@@ -84,3 +84,42 @@
 - Lo mas habitual es separar la aplicacion de express en dos partes
   - Servidor -> recibe peticiones -> bin/www.js
   - Aplicacion -> gestiona peticiones -> app.js
+- Con node --watch podemos evitar usar nodemon
+- Existen utilidades como [Express Generator](https://www.npmjs.com/package/express-generator) que permiten crear una estructura base de una aplicacion express. Se puede usar como base para la práctica
+
+### .env
+
+- Variables de entorno
+- Nunca se suben al repo, se sube .env.example sin valores
+- Dotenv es un paquete para cargar variables de entorno
+- A node le podemos pasar un [--env-file](https://nodejs.org/docs/latest/api/cli.html#env-filefile)
+
+### Middlewares
+
+- Es una funcion que se activa ante una determinada peticion, o ante todas,independientemente de la ruta o el verbo
+- Controlan el ciclo de vida de la petición
+- Son bloques por los que pasa una petición antes de que el cliente reciba la respuesta
+- Entre middlewares se pueden poner otros middlewares
+- El sistema de middlewares de express usa callbacks
+- Con next() se pasa entre middlewares, hasta que uno devuelve la response
+- Pueden venir de 3 sitios
+  - Escritos por nosotros
+  - Propios de express
+  - De terceros
+- El orden de los middlewares si altera el resultado
+- Primero los middlewares y luego las rutas
+- Si dos rutas coinciden, la primera será el handler, la otra no se ejecutará
+
+### Routers
+
+- Objeto nativa de express que permite encapsular middlewares
+- Permite organizar mejor los middlewares
+- Es un middelware que puede tener varias rutas
+
+### MVC
+
+- Patron que separa la logica en funcion de lo que se encargue
+- Modelo Vista Controlador
+- La vista accede al controlador
+- El controlador pide datos al modelo
+- El modelo se encarga de los datos
