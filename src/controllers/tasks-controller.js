@@ -1,7 +1,23 @@
 import { getTasks, countPendingTasks } from '../data/tasksRepository.js'
 
-// TODO:
-// enviar el htmlTask como variable
+export async function newTaskPageController(req, res, next) {
+  const pendingTasks = await countPendingTasks()
+
+  res.render('new-task.html', {
+    title: 'Crear nueva tarea',
+    pendingTasks: pendingTasks,
+  })
+}
+
+export async function createTaskController(req, res, next) {
+  console.log(req.body)
+
+  const newTask = req.body
+
+  // Redirecciona la peticion
+  res.redirect('/tasks/new')
+}
+
 export async function tasksPageController(req, res, next) {
   const pendingTasks = await countPendingTasks()
   const tasks = await getTasks()

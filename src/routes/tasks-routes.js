@@ -1,8 +1,27 @@
 import express from 'express'
-import { tasksPageController } from '../controllers/tasks-controller.js'
+import {
+  tasksPageController,
+  createTaskController,
+  newTaskPageController,
+} from '../controllers/tasks-controller.js'
 
 export const tasksRouter = express.Router()
 
+// Estamos bajo el dominio de tasks
+//   GET / (obtener todas)
+//   GET /id (obtener por id)
+//   POST / (crear una)
+//   PUT /id (actualizar una) //! /update/id (evitar)
+//   DELETE /id (eliminar una) //! /delete/id (evitar)
+
+// CRUD de Tareas
+
+// C:
+// Creamos ruta
+tasksRouter.get('/new', newTaskPageController)
+tasksRouter.post('/', createTaskController)
+
+// R:
 // Esta ruta es relativa a /task
 // El router ya incluye la ruta declarada en app
 tasksRouter.get('/', tasksPageController)

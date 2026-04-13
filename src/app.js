@@ -36,50 +36,6 @@ app.use('/', pagesRouter)
 app.use('/', utilitiesRouter)
 app.use('/tasks', tasksRouter)
 
-// Middleware para generar el plantillado html
-app.use((req, res, next) => {
-  const renderHtml = res.locals.html
-
-  if (!renderHtml) {
-    next()
-    return
-  }
-
-  const title = res.locals.title || 'Express App'
-  const pendingTasks = res.locals.pendingTasks || 0
-  const content = res.locals.content || '<p>Default</p>'
-
-  res.send(`
-    <!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Server HTTP básico</title>
-  <link rel="stylesheet" href="/app.css" />
-  <link rel="icon" href="/icon.webp" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-
-<body>
-  <nav class="container">
-    <a href="/">Home</a>
-    <a href="/tasks">Tasks (0)</a>
-    <a href="/health">Health</a>
-  </nav>
-  <h1>Server HTTP básico</h1>
-  <p>
-    ${content}
-  </p>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
-
-</html>
-  `)
-})
-
 // Handler 404
 app.use((req, res) => {
   res.status(404).send('Resource not found')
