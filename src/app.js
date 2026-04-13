@@ -21,10 +21,10 @@ app.use(express.static(join(appDir, '../public'))) // Crea la ruta a /public
 app.use(morgan('tiny'))
 
 // Custom middleware para todas las rutas
-app.use((req, res, next) => {
-  console.log('Nueva Petición!')
-  next()
-})
+// app.use((req, res, next) => {
+//   console.log('Nueva Petición!')
+//   next()
+// })
 
 // Configuracion del motor de plantillas
 app.set('view engine', 'html') // Definimos el motor de vistas
