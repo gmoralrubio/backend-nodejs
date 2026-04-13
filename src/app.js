@@ -70,7 +70,7 @@ app.use((req, res, next) => {
   </nav>
   <h1>Server HTTP básico</h1>
   <p>
-    Renderizado con ejs. Este ejemplo ya respira web SSR: una ruta HTML, una lista HTML y una ruta de health
+    ${content}
   </p>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
