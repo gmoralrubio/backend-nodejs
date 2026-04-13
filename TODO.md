@@ -8,3 +8,6 @@
 ---
 
 1. Validar que los datos son correctos
+   1. done tiene que existir en el objeto
+   2. done tiene que ser un booleano
+   3. title no puede estar vacìo

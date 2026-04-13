@@ -1,21 +1,44 @@
-import { getTasks, countPendingTasks } from '../data/tasksRepository.js'
+import { getTasks, countPendingTasks, addNewTask } from '../data/tasksRepository.js'
 
 export async function newTaskPageController(req, res, next) {
+  const title = 'Crear nueva tarea'
   const pendingTasks = await countPendingTasks()
 
   res.render('new-task.html', {
-    title: 'Crear nueva tarea',
-    pendingTasks: pendingTasks,
+    title,
+    pendingTasks,
+    errorMessage: null,
+    values: {},
   })
 }
 
 export async function createTaskController(req, res, next) {
-  console.log(req.body)
+  const title = 'Crear nueva tarea'
+  const pendingTasks = await countPendingTasks()
+  // Si el usuario no mete titulo...
+  if (!req.body.title || req.body.title === '') {
+    const errorMessage = 'El título es obligatorio'
+    // El usuario tiene que acabar de insertar los datos
+    // Devolvemos el formulario de nuevo
+    res.render('new-task.html', {
+      title,
+      pendingTasks,
+      errorMessage,
+      // si nos ha pasado el formulario incompleto, devolvemos todo el body para pintar los valores que si nos envió
+      values: req.body,
+    })
+    return
+  }
 
-  const newTask = req.body
+  const newTask = {
+    title: req.body.title,
+    done: req.body.done === 'on' ? true : false, //req.body.done!!
+  }
+  const createdTask = await addNewTask(newTask)
+  console.log(createdTask)
 
   // Redirecciona la peticion
-  res.redirect('/tasks/new')
+  res.redirect('/tasks')
 }
 
 export async function tasksPageController(req, res, next) {
