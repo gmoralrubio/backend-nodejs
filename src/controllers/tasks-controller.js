@@ -63,3 +63,31 @@ export async function tasksPageController(req, res, next) {
 
   return
 }
+
+export async function taskPageController(req, res, next) {
+  const title = 'Detalle de tarea'
+  const pendingTasks = await countPendingTasks()
+  // Extraemos los parametros de la url de la peticion
+  const params = req.params
+  // El id se recibe como string, hay que parsearlo
+  const taskId = Number(req.params.taskId)
+  // Obtener la tarea
+  const tasks = await getTasks()
+  const task = tasks.find(t => t.id === taskId)
+
+  if (!task) {
+    // Devolver 404
+    next()
+    return
+  }
+
+  // Pasar los datos a la plantilla
+  res.render('new-task.html', {
+    title,
+    pendingTasks,
+    errorMessage: null,
+    values: { title: task.title, done: task.done ? 'on' : '' },
+  })
+  // Poder mostrar un formulario con los datos de la tarea
+  return
+}
