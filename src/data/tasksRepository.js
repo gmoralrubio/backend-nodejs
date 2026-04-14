@@ -1,21 +1,15 @@
-import { readFile, writeFile } from 'node:fs/promises'
 // Importamos ObjectId, de un string nos devuelve un objeto id de mongo
 import { ObjectId } from 'mongodb'
+import { Task } from '../models/task-model.js'
 
-// Importamos el cliente de Mongo
-import { dbClient } from '../lib/database.js'
+const dbClient = null
 
 const COLLECTION = 'tasks'
 
 // obtenemos las tareas de la DB
 export async function getTasks() {
-  //   const fileUrl = new URL('./tasks.json', import.meta.url)
-  //   const fileContents = await readFile(fileUrl, 'utf-8')
-  //   return JSON.parse(fileContents)
-  // Nos conectamos a la colección que nos devuelve todos los documentos
-  // find({}) se usa para filtrar y devuelve un findCursor, lo transformamos en array para trabajar con el
-  // La base de datos (kc20_test) y la coleccion (tasks), las creamos desde atlas
-  const result = await dbClient.collection(COLLECTION).find({}).toArray()
+  // Usamos el modelo de mongoose
+  const result = Task.find({})
   return result
 }
 
@@ -25,7 +19,12 @@ export async function countPendingTasks() {
 
   // Usamos mongo para contar los documentos de una coleccion
   // a countDocuments le pasamos un filtro ({done: false})
-  const count = await dbClient.collection(COLLECTION).countDocuments({
+  // const count = await dbClient.collection(COLLECTION).countDocuments({
+  //   done: false,
+  // })
+
+  // Contamos documentos con el modelo de mongoose
+  const count = Task.countDocuments({
     done: false,
   })
   return count

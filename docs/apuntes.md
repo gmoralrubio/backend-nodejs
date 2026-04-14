@@ -152,3 +152,4 @@ https://www.mongodb.com/es/docs/drivers/node/current/crud/insert/
 - Se trata de un ODM -> object document maping
 - Es una herramienta que permite persistir objetos en MongoDB
 - Permite modelar los datos
+- Ya no trabajamos con la bd, si no con schemas y modelos
