@@ -4,17 +4,15 @@
     <li><a href="/tasks?status=done">Done</a></li>
     <li><a href="/tasks?status=all">All</a></li>
   </ul>
-  <h1>
-    <%= title %>
-  </h1>
+  <h1><%= title %></h1>
   <!-- Pintamos las tareas en el html -->
   <ul>
     <% if(tasks.length===0) { %>
       <li>No se han encontrado tareas</li>
       <% } else { tasks.forEach(task=> { %>
         <!-- En este caso si le pasamos la varaiable task, porque no esta definida en el render del controller -->
-        <%- include('partials/components/task-component.html', {task: task}) %>
-          <%})}%>
+      <%- include('partials/components/task-component.html', {task: task}) %>
+    <%})}%>
   </ul>
   </div>
   <%- include('partials/page-end.html')%>
