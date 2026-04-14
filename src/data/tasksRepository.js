@@ -42,3 +42,17 @@ export async function updateTask(taskId, newTask) {
   await writeFile(fileUrl, JSON.stringify(tasks))
   return newTask
 }
+
+export async function deleteTask(taskId) {
+  const tasks = await getTasks()
+  const taskIdx = tasks.findIndex(i => i.id === taskId)
+  if (taskIdx === -1) {
+    return
+  }
+
+  // Eliminamos la tarea con splice (modifica tasks in-place)
+  tasks.splice(taskIdx, 1)
+  const fileUrl = new URL('./tasks.json', import.meta.url)
+  await writeFile(fileUrl, JSON.stringify(tasks))
+  return tasks
+}

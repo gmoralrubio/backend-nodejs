@@ -25,7 +25,33 @@
         </label>
         <button type="submit" class="btn btn-primary">Guardar tarea</button>
       </form>
+      <% if(values.id) { %>
+        <button class="btn btn-danger" id="delete-btn">Eliminar tarea</button>
+      <% } %>
     </div>
   </section>
 
-  <%- include('partials/page-end.html')%>
+  <script>
+    // Detectar cuando se presiona el botón
+    const deleteBtn = document.querySelector('#delete-btn')
+    
+    // Conocer el id
+    const taskId = '<%= values.id%>'
+
+    // Llamar a una url con ese id (DELETE /tasks/id)
+    deleteBtn.addEventListener('click', () => {
+      console.log('clicked');
+
+      // Fetch recibe dos parametros: La url y un objeto de opciones
+      const options = { method: 'DELETE' }
+
+      fetch('/tasks/' + taskId, options)
+        .then(response => response.text())
+        .then(data => {
+          console.log(data)
+          window.location.href = '/tasks'
+        })
+    })
+  </script>
+
+<%- include('partials/page-end.html')%>

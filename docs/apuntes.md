@@ -123,3 +123,28 @@
 - La vista accede al controlador
 - El controlador pide datos al modelo
 - El modelo se encarga de los datos
+
+## MongoDB
+
+- Se trabaja con documentos y colecciones(similar a un json)
+- Se diferencia de bbdd relacionales en que no siempre matiene una estructura
+- Dentro de una misma coleccion puede haber registros con diferentes propiedades
+- En una relacional se pueden establecer relaciones dentro de la bbdd
+- En una no relacional no se puede hacer en la bbdd
+- Por defecto no tiene esquemas
+- No relacionales es más rápido
+- Se usan para propositos distintos
+-
+- Los id los guarda como `_id`
+- Añade `createdAt` y `updatedAt`
+
+- Para conctarnos a la db, lo ghacemos desde src/lib/database.js
+
+### BBDD ORM
+
+- Permite convertir los objetos en consultas a la base de datos
+- Traducir los resultados de una consulta a objetos
+
+### Mongoose
+
+Es una herramienta que permite persistir objetos en MongoDB

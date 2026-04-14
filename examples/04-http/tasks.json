@@ -9,6 +9,7 @@
     "title": "Revisar los ejemplos de fs/promises",
     "done": true
   },
+  // En mongo los ids son _id
   {
     "id": 3,
     "title": "Explicar Promise.all en directo",

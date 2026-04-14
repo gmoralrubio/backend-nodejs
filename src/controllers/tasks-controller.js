@@ -3,6 +3,7 @@ import {
   countPendingTasks,
   addNewTask,
   updateTask,
+  deleteTask,
 } from '../data/tasksRepository.js'
 
 export async function newTaskPageController(req, res, next) {
@@ -137,4 +138,21 @@ export async function editTaskController(req, res, next) {
 
   // Devolver algo -> redirect
   res.redirect('/tasks')
+}
+
+export async function deleteTaskController(req, res, next) {
+  // Obtener la tarea
+  const taskId = Number(req.params.taskId)
+  const tasks = await getTasks()
+  const task = tasks.find(t => t.id === taskId)
+  if (!task) {
+    // Devolver 404
+    next()
+    return
+  }
+
+  const newTasks = await deleteTask(taskId)
+
+  // Devolvemos la nueva lista de tareas
+  res.json(newTasks)
 }

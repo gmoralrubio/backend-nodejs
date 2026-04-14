@@ -5,6 +5,7 @@ import {
   newTaskPageController,
   taskPageController,
   editTaskController,
+  deleteTaskController,
 } from '../controllers/tasks-controller.js'
 
 export const tasksRouter = express.Router()
@@ -33,3 +34,6 @@ tasksRouter.get('/', tasksPageController)
 // Nosotros damos el nombre por el cual luego accederemos en el req.params
 tasksRouter.get('/:taskId', taskPageController)
 tasksRouter.post('/edit/:taskId', editTaskController)
+
+// D:
+tasksRouter.delete('/:taskId', deleteTaskController)

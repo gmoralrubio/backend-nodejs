@@ -1,14 +1,8 @@
-# Crear Tarea
+# Conexion con BBDD
 
-1. Una ruta POST que reciba esos datos
-2. Una página completa con el formulario
-3. Un controlador que extraiga el body y lo guarde en mi "base de datos"
-4. Un formulario para poder enviar esos datos
-
----
-
-1. Validar que los datos son correctos
-   1. done tiene que existir en el objeto
-   2. done tiene que ser un booleano
-   3. title no puede estar vacìo
-2. TODO: Reaprovechar el formulario sin que se dupliquen las tareas
+1. Conectar nuestro codigo a la base de datos de atlas
+2. Refactorizar nuestro task repository para acceder a esos datos
+   1. Directamente con Mongo
+   2. -> Collection mongoose
+3. Adaptar taskController
+4. Revisar que la web muestra los datos
