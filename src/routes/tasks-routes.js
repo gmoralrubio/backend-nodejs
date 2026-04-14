@@ -4,6 +4,7 @@ import {
   createTaskController,
   newTaskPageController,
   taskPageController,
+  editTaskController,
 } from '../controllers/tasks-controller.js'
 
 export const tasksRouter = express.Router()
@@ -27,6 +28,8 @@ tasksRouter.post('/', createTaskController)
 // El router ya incluye la ruta declarada en app
 tasksRouter.get('/', tasksPageController)
 
+// U:
 // Creamos una ruta get por id
 // Nosotros damos el nombre por el cual luego accederemos en el req.params
 tasksRouter.get('/:taskId', taskPageController)
+tasksRouter.post('/edit/:taskId', editTaskController)

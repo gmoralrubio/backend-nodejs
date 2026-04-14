@@ -12,8 +12,8 @@ import { tasksRouter } from './routes/tasks-routes.js'
 // Creamos la aplicacion
 const app = express()
 const appDir = dirname(fileURLToPath(import.meta.url)) // url del archivo actual
-console.log(appDir)
-console.log(import.meta.url) // Lleva el file//
+// console.log(appDir)
+// console.log(import.meta.url) // Lleva el file//
 
 // Global middlewares
 app.use(express.urlencoded({ extended: true }))

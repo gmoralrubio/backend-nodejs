@@ -1,0 +1,31 @@
+<%- include('partials/page-start.html')%>
+  <h1> <%= title %> </h1>
+<% if(values.id) { %>
+  <span>Id de la tarea: <%= values.id %></span>
+<% } %>
+  <section class="card">
+    <div class="card-body">
+    <% if(errorMessage) { %>
+      <span> <%= errorMessage %> </span>
+    <%}%>
+      <!-- en caso de que exista un id, en lugar de crear, actualizamos -->
+       <!-- Los métodos válidos en un form html son POST y GET  -->
+      <form
+        method="POST"
+        action="/tasks<%= values.id ? '/edit/' + values.id : '' %>">
+        <label for="title">
+          Título
+          <!-- Si hay un value para el title, lo usamos -->
+          <input type="text" name="title" id="title" value="<%=values.title ?? ''%>" placeholder="Preparar el formulario de creación de tarea">
+        </label>
+        <label for="done">
+          Completada
+          <!-- Si checkeó, lo mostramos checkeado -->
+          <input type="checkbox" name="done" id="done" <%=values.done==='on' ? 'checked' : '' %> >
+        </label>
+        <button type="submit" class="btn btn-primary">Guardar tarea</button>
+      </form>
+    </div>
+  </section>
+
+  <%- include('partials/page-end.html')%>

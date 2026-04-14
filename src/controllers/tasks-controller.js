@@ -1,10 +1,15 @@
-import { getTasks, countPendingTasks, addNewTask } from '../data/tasksRepository.js'
+import {
+  getTasks,
+  countPendingTasks,
+  addNewTask,
+  updateTask,
+} from '../data/tasksRepository.js'
 
 export async function newTaskPageController(req, res, next) {
   const title = 'Crear nueva tarea'
   const pendingTasks = await countPendingTasks()
 
-  res.render('new-task.html', {
+  res.render('task.html', {
     title,
     pendingTasks,
     errorMessage: null,
@@ -20,7 +25,7 @@ export async function createTaskController(req, res, next) {
     const errorMessage = 'El título es obligatorio'
     // El usuario tiene que acabar de insertar los datos
     // Devolvemos el formulario de nuevo
-    res.render('new-task.html', {
+    res.render('task.html', {
       title,
       pendingTasks,
       errorMessage,
@@ -82,12 +87,54 @@ export async function taskPageController(req, res, next) {
   }
 
   // Pasar los datos a la plantilla
-  res.render('new-task.html', {
+  res.render('task.html', {
     title,
     pendingTasks,
     errorMessage: null,
-    values: { title: task.title, done: task.done ? 'on' : '' },
+    values: { id: taskId, title: task.title, done: task.done ? 'on' : '' },
   })
   // Poder mostrar un formulario con los datos de la tarea
   return
+}
+
+export async function editTaskController(req, res, next) {
+  const title = 'Detalle de tarea'
+  // Obtener la tarea
+  const taskId = Number(req.params.taskId)
+  const tasks = await getTasks()
+  const task = tasks.find(t => t.id === taskId)
+  if (!task) {
+    // Devolver 404
+    next()
+    return
+  }
+  // Verificar datos
+  if (!req.body.title || req.body.title === '') {
+    const errorMessage = 'El título es obligatorio'
+    const pendingTasks = await countPendingTasks()
+
+    // El usuario tiene que acabar de insertar los datos
+    // Devolvemos el formulario de nuevo
+    res.render('task.html', {
+      title,
+      pendingTasks,
+      errorMessage,
+      // Devolvemos todo el body junto con el id
+      values: {
+        id: taskId,
+        ...req.body,
+      },
+    })
+    return
+  }
+  // Actualizar la tarea
+  // le pasamos el nuevo objeto de tarea a sustituir, con el id
+  await updateTask(taskId, {
+    id: taskId,
+    title: req.body.title,
+    done: req.body.done === 'on' ? true : false, //req.body.done!!
+  })
+
+  // Devolver algo -> redirect
+  res.redirect('/tasks')
 }

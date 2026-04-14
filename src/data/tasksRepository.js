@@ -27,3 +27,18 @@ export async function addNewTask(task) {
   // Devolver el objeto creado
   return newTask
 }
+
+export async function updateTask(taskId, newTask) {
+  const tasks = await getTasks()
+  const taskIdx = tasks.findIndex(i => i.id === taskId)
+
+  // Verificamos el id
+  if (taskIdx === -1) {
+    return
+  }
+  // Reemplazamos la tarea por su indice dentro de tasks
+  tasks[taskIdx] = newTask
+  const fileUrl = new URL('./tasks.json', import.meta.url)
+  await writeFile(fileUrl, JSON.stringify(tasks))
+  return newTask
+}
