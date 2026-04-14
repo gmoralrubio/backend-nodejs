@@ -5,9 +5,8 @@ import { MongoClient } from 'mongodb'
 // Traemos la uri de la db
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017'
 
-// Creamos y exportamos el cliente
-// El cliente se importará donde sea que queramos usarlo
-export const client = new MongoClient(MONGODB_URI)
+// Creamos  el cliente
+const client = new MongoClient(MONGODB_URI)
 
 // La db siempre está conectada, nos conectaremos cuando levantemos el servidor (www.js)
 export async function connectToDB() {
@@ -15,3 +14,7 @@ export async function connectToDB() {
   await client.connect()
   console.log('Connected to MongoDB')
 }
+
+// Exportamos el cliente de la base de datos
+// El cliente se importará donde sea que queramos usarlo
+export const dbClient = client.db(process.env.DB_NAME || 'demo')
