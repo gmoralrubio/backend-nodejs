@@ -1,7 +1,7 @@
 <%- include('partials/page-start.html')%>
   <h1> <%= title %> </h1>
-<% if(values.id) { %>
-  <span>Id de la tarea: <%= values.id %></span>
+<% if(values._id) { %>
+  <span>Id de la tarea: <%= values._id %></span>
 <% } %>
   <section class="card">
     <div class="card-body">
@@ -12,7 +12,7 @@
        <!-- Los métodos válidos en un form html son POST y GET  -->
       <form
         method="POST"
-        action="/tasks<%= values.id ? '/edit/' + values.id : '' %>">
+        action="/tasks<%= values._id ? '/edit/' + values._id : '' %>">
         <label for="title">
           Título
           <!-- Si hay un value para el title, lo usamos -->
@@ -25,21 +25,21 @@
         </label>
         <button type="submit" class="btn btn-primary">Guardar tarea</button>
       </form>
-      <% if(values.id) { %>
+      <% if(values._id) { %>
         <button class="btn btn-danger" id="delete-btn">Eliminar tarea</button>
       <% } %>
     </div>
   </section>
-
+<% if(values._id) { %>
   <script>
     // Detectar cuando se presiona el botón
     const deleteBtn = document.querySelector('#delete-btn')
     
     // Conocer el id
-    const taskId = '<%= values.id%>'
+    const taskId = '<%= values._id%>'
 
     // Llamar a una url con ese id (DELETE /tasks/id)
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn?.addEventListener('click', () => {
       console.log('clicked');
 
       // Fetch recibe dos parametros: La url y un objeto de opciones
@@ -53,5 +53,7 @@
         })
     })
   </script>
+<% } %>
+  
 
 <%- include('partials/page-end.html')%>

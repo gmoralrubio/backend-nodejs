@@ -126,6 +126,8 @@
 
 ## MongoDB
 
+https://www.mongodb.com/es/docs/drivers/node/current/crud/insert/
+
 - Se trabaja con documentos y colecciones(similar a un json)
 - Se diferencia de bbdd relacionales en que no siempre matiene una estructura
 - Dentro de una misma coleccion puede haber registros con diferentes propiedades
@@ -147,4 +149,6 @@
 
 ### Mongoose
 
-Es una herramienta que permite persistir objetos en MongoDB
+- Se trata de un ODM -> object document maping
+- Es una herramienta que permite persistir objetos en MongoDB
+- Permite modelar los datos

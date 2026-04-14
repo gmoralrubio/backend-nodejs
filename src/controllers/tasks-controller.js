@@ -4,6 +4,7 @@ import {
   addNewTask,
   updateTask,
   deleteTask,
+  getTask,
 } from '../data/tasksRepository.js'
 
 export async function newTaskPageController(req, res, next) {
@@ -74,12 +75,10 @@ export async function taskPageController(req, res, next) {
   const title = 'Detalle de tarea'
   const pendingTasks = await countPendingTasks()
   // Extraemos los parametros de la url de la peticion
-  const params = req.params
-  // El id se recibe como string, hay que parsearlo
-  const taskId = Number(req.params.taskId)
+  const taskId = req.params.taskId
   // Obtener la tarea
-  const tasks = await getTasks()
-  const task = tasks.find(t => t.id === taskId)
+  const task = await getTask(taskId)
+  console.log(task)
 
   if (!task) {
     // Devolver 404
@@ -92,7 +91,7 @@ export async function taskPageController(req, res, next) {
     title,
     pendingTasks,
     errorMessage: null,
-    values: { id: taskId, title: task.title, done: task.done ? 'on' : '' },
+    values: { _id: task._id, title: task.title, done: task.done ? 'on' : '' },
   })
   // Poder mostrar un formulario con los datos de la tarea
   return
@@ -101,9 +100,8 @@ export async function taskPageController(req, res, next) {
 export async function editTaskController(req, res, next) {
   const title = 'Detalle de tarea'
   // Obtener la tarea
-  const taskId = Number(req.params.taskId)
-  const tasks = await getTasks()
-  const task = tasks.find(t => t.id === taskId)
+  const taskId = req.params.taskId
+  const task = await getTask(taskId)
   if (!task) {
     // Devolver 404
     next()
@@ -142,9 +140,8 @@ export async function editTaskController(req, res, next) {
 
 export async function deleteTaskController(req, res, next) {
   // Obtener la tarea
-  const taskId = Number(req.params.taskId)
-  const tasks = await getTasks()
-  const task = tasks.find(t => t.id === taskId)
+  const taskId = req.params.taskId
+  const task = await getTask(taskId)
   if (!task) {
     // Devolver 404
     next()
