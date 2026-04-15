@@ -12,6 +12,4 @@ export async function homePageController(req, res, next) {
       'Este ejemplo ya respira web SSR: una ruta HTML, una lista HTML y una ruta de health',
     pendingTasks: pendingTasks,
   })
-
-  return
 }
