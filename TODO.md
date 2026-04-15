@@ -7,3 +7,10 @@
    2. -> Collection mongoose
 3. Adaptar taskController
 4. Revisar que la web muestra los datos
+
+##
+
+1. Acabar migracion task
+2. Crear modelo user
+   1. Funciones
+3. Implementar login
