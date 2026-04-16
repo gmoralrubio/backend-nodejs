@@ -9,11 +9,9 @@ import {
 
 export async function newTaskPageController(req, res, next) {
 	const title = 'Crear nueva tarea'
-	const pendingTasks = await countPendingTasks()
 
 	res.render('task.html', {
 		title,
-		pendingTasks,
 		errorMessage: null,
 		values: {},
 	})
@@ -21,7 +19,6 @@ export async function newTaskPageController(req, res, next) {
 
 export async function createTaskController(req, res, next) {
 	const title = 'Crear nueva tarea'
-	const pendingTasks = await countPendingTasks()
 	// Si el usuario no mete titulo...
 	if (!req.body.title || req.body.title === '') {
 		const errorMessage = 'El título es obligatorio'
@@ -29,7 +26,6 @@ export async function createTaskController(req, res, next) {
 		// Devolvemos el formulario de nuevo
 		res.render('task.html', {
 			title,
-			pendingTasks,
 			errorMessage,
 			// si nos ha pasado el formulario incompleto, devolvemos todo el body para pintar los valores que si nos envió
 			values: req.body,
@@ -42,16 +38,13 @@ export async function createTaskController(req, res, next) {
 		done: req.body.done === 'on' ? true : false, //req.body.done!!
 	}
 	const createdTask = await addNewTask(newTask)
-	console.log(createdTask)
 
 	// Redirecciona la peticion
 	res.redirect('/tasks/')
 }
 
 export async function tasksPageController(req, res, next) {
-	const pendingTasks = await countPendingTasks()
 	const tasks = await getTasks()
-	console.log(tasks)
 
 	// Hay que usar el middleware app.use(express.urlencoded({ extended: true }))
 	const status = req.query.status ?? 'all'
@@ -65,14 +58,12 @@ export async function tasksPageController(req, res, next) {
 
 	res.render('tasks.html', {
 		title: 'Tasks',
-		pendingTasks: pendingTasks,
 		tasks: filteredTasks,
 	})
 }
 
 export async function taskPageController(req, res, next) {
 	const title = 'Detalle de tarea'
-	const pendingTasks = await countPendingTasks()
 	// Extraemos los parametros de la url de la peticion
 	const taskId = req.params.taskId
 	// Obtener la tarea
@@ -88,7 +79,6 @@ export async function taskPageController(req, res, next) {
 	// Pasar los datos a la plantilla
 	res.render('task.html', {
 		title,
-		pendingTasks,
 		errorMessage: null,
 		values: { _id: task._id, title: task.title, done: task.done ? 'on' : '' },
 	})
@@ -107,13 +97,10 @@ export async function editTaskController(req, res, next) {
 	// Verificar datos
 	if (!req.body.title || req.body.title === '') {
 		const errorMessage = 'El título es obligatorio'
-		const pendingTasks = await countPendingTasks()
-
 		// El usuario tiene que acabar de insertar los datos
 		// Devolvemos el formulario de nuevo
 		res.render('task.html', {
 			title,
-			pendingTasks,
 			errorMessage,
 			// Devolvemos todo el body junto con el id
 			values: {

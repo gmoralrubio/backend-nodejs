@@ -176,3 +176,10 @@ done: boolean,
 }
 
 Cuando llamemos a tarea
+
+## Sesiones
+
+- Se establece una relacion entre sesion y usuario
+- Eso se guarda una cookie en el navegador
+- Se puede usar un paquete npm: express-session
+- Se define un middleware y este se encarga de la relacion entre navegador y node a través de una cookie

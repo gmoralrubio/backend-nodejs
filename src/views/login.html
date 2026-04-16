@@ -3,12 +3,15 @@
 
   <section class="card">
 	<section class="card-body">
+		<% if(errorMessage) { %>
+			<span> <%= errorMessage %> </span>
+		<%}%>
 		<form action="/login" method="POST">
 			<label for="email">
 				Email
 				<input 
 					type="email"
-					for="email"
+					name="email"
 					id="email"
 					placeholder="example@email.com"
 					value="<%= values.email ?? '' %>">
@@ -17,11 +20,11 @@
 				Password
 				<input 
 					type="password"
-					for="password"
+					name="password"
 					id="password"
 					>
 			</label>
-			<button type="submit">Login</button>
+			<button class="btn btn-primary" type="submit">Login</button>
 		</form>
 	</section>
   </section>

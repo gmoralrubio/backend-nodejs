@@ -9,6 +9,8 @@ import { pagesRouter } from './routes/pages-routes.js'
 import { utilitiesRouter } from './routes/utilities-routes.js'
 import { tasksRouter } from './routes/tasks-routes.js'
 import { authRouter } from './routes/auth-routes.js'
+import { dataInViews } from './middleware/views-middleware.js'
+import { sessionMiddleware } from './middleware/auth-middleware.js'
 
 // Creamos la aplicacion
 const app = express()
@@ -20,6 +22,10 @@ const appDir = dirname(fileURLToPath(import.meta.url)) // url del archivo actual
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(join(appDir, '../public'))) // Crea la ruta a /public
 app.use(morgan('tiny'))
+// Middleware para los datos en vistas
+app.use(dataInViews)
+// Auth middlewares
+app.use(sessionMiddleware)
 
 // Custom middleware para todas las rutas
 // app.use((req, res, next) => {
