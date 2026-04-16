@@ -24,8 +24,16 @@ process.exit(0)
 
 async function seedUsers() {
 	const USERS = [
-		{ name: 'John Doe', email: 'johndoe@email.com', password: '1234' },
-		{ name: 'Admin', email: 'admin@email.com', password: '1234' },
+		{
+			name: 'John Doe',
+			email: 'johndoe@email.com',
+			password: await User.hashPassword('1234'),
+		},
+		{
+			name: 'Admin',
+			email: 'admin@email.com',
+			password: await User.hashPassword('1234'),
+		},
 	]
 
 	// Eliminamos los posibles usuarios
