@@ -7,20 +7,18 @@ import mongoose, { Schema } from 'mongoose'
 // Schema (molde o plantilla)
 // Definimos la forma que tendran las tareas
 const taskSchema = new Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    done: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  {
-    timestamps: true,
-  },
+	{
+		title: {
+			type: String,
+			required: true,
+			trim: true,
+		},
+		done: {
+			type: Boolean,
+			default: false,
+		},
+	},
+	{ timestamps: true },
 )
 
 // Model (contenedor o generador)

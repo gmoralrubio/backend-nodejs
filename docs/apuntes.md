@@ -3,9 +3,9 @@
 -El flujo con el servidor es request <-> response
 
 - En las peticiones tenemos:
-  - Type
-  - Initiatior -> quien hace la peticion
-  - Status (200, 300, 400, 500)
+    - Type
+    - Initiatior -> quien hace la peticion
+    - Status (200, 300, 400, 500)
 - Las peticiones se ejecutan en cascada hasta que se realizan todas
 - El cliente es quien se encarga de hacer las peticiones
 - El servidor gestiona estas peticiones, dando el contenido de la respuesta y el status
@@ -18,13 +18,13 @@
 - Con servidor de aplicación -> a diferencia de php que necesita Apache, por ejemplo
 - Basado en motor V8
 - Se rige por un sistema de versiones
-  - Unstable
-  - Maintenance
-  - Active
-  - Current
+    - Unstable
+    - Maintenance
+    - Active
+    - Current
 - Ventajas:
-  - Asincronía (APIs, servicios tiempo real, etc.)
-  - Aplicaciones con clientes escritos en JS
+    - Asincronía (APIs, servicios tiempo real, etc.)
+    - Aplicaciones con clientes escritos en JS
 
 ### nvm
 
@@ -39,9 +39,9 @@
 - Repositorio de dependencias
 - Con `npm init` inicializamos el proyecto con un `package.json`
 - Con **scripts**, podemos definir acciones que queremos ejecutar fácil:
-  - `"example:hello": "node examples/01-hola-node/index.js"`
-  - Si tenemos varios scripts y que queremos englobar, usamos : (example:hello)
-  - con el comando `npm run example:hello`, ejecutamos el script
+    - `"example:hello": "node examples/01-hola-node/index.js"`
+    - Si tenemos varios scripts y que queremos englobar, usamos : (example:hello)
+    - con el comando `npm run example:hello`, ejecutamos el script
 - El Contexto Global no es Window, ya que no estamos en un navegador
 - Cuando instalamos dependencias, se crea el package-lock, donde se encuentran las dependencias y sus respectivas dependencias
 - Con `npm install --save-dev <dependencia>` se instala dependencia de desarrollo
@@ -50,9 +50,9 @@
 - En http hay peticiones idempotentes, se asume por convencion que son peticiones que no van a generar cambios en el servidor, son read-only. Por lo tanto, el navegador puede realizarla varias veces.
 - Las peticiones GET son idempotentes, siempre son de lectura
 - NPM gestiona dos tipos de contexto:
-  - Local: en una carpeta de proyecto donde se encuentre el package.json
-  - Global: en una carpeta de usuario para todos los proyectos
-  - Paquetes como nodemon, puede ser recomendable instalarlo de manera global (-g)
+    - Local: en una carpeta de proyecto donde se encuentre el package.json
+    - Global: en una carpeta de usuario para todos los proyectos
+    - Paquetes como nodemon, puede ser recomendable instalarlo de manera global (-g)
 
 #### npx
 
@@ -64,26 +64,26 @@
 - Es un protocolo de comunicación para la web
 - Sigue el esquema tradicional de cliente-servidor
 - Existen verbos/metodos HTTP:
-  - GET -> Obtener datos o recursos
-  - POST -> Enviar datos para crear
-  - PUT -> Reemplazar un recurso (actualizar perfil)
-  - PATCH -> Modificar parcialmente (cambiar solo email)
-  - DELETE -> Eliminar un recurso
+    - GET -> Obtener datos o recursos
+    - POST -> Enviar datos para crear
+    - PUT -> Reemplazar un recurso (actualizar perfil)
+    - PATCH -> Modificar parcialmente (cambiar solo email)
+    - DELETE -> Eliminar un recurso
 - En el navegador solo usamos GET
 - GET se considera idempotente (puede ser llamado varias veces). Por esto nunca debería haber acciones de escritura
 - Existen tambien códigos de estado
-  - 1xx -> Información (raros)
-  - 2xx -> Éxito
-  - 3xx -> Redirecciones
-  - 4xx -> Errores de cliente (petición incorrecta)
-  - 5xx -> Errores de servidor
+    - 1xx -> Información (raros)
+    - 2xx -> Éxito
+    - 3xx -> Redirecciones
+    - 4xx -> Errores de cliente (petición incorrecta)
+    - 5xx -> Errores de servidor
 
 ## Express.js
 
 - Es una herramienta que permite generar servicios de forma más cómoda
 - Lo mas habitual es separar la aplicacion de express en dos partes
-  - Servidor -> recibe peticiones -> bin/www.js
-  - Aplicacion -> gestiona peticiones -> app.js
+    - Servidor -> recibe peticiones -> bin/www.js
+    - Aplicacion -> gestiona peticiones -> app.js
 - Con node --watch podemos evitar usar nodemon
 - Existen utilidades como [Express Generator](https://www.npmjs.com/package/express-generator) que permiten crear una estructura base de una aplicacion express. Se puede usar como base para la práctica
 
@@ -103,9 +103,9 @@
 - El sistema de middlewares de express usa callbacks
 - Con next() se pasa entre middlewares, hasta que uno devuelve la response
 - Pueden venir de 3 sitios
-  - Escritos por nosotros
-  - Propios de express
-  - De terceros
+    - Escritos por nosotros
+    - Propios de express
+    - De terceros
 - El orden de los middlewares si altera el resultado
 - Primero los middlewares y luego las rutas
 - Si dos rutas coinciden, la primera será el handler, la otra no se ejecutará
@@ -153,3 +153,26 @@ https://www.mongodb.com/es/docs/drivers/node/current/crud/insert/
 - Es una herramienta que permite persistir objetos en MongoDB
 - Permite modelar los datos
 - Ya no trabajamos con la bd, si no con schemas y modelos
+- Con mogoose podemos relacionar dos entidades/modelos (user <-> task)
+
+User {
+\_id: ObjectId(),
+name: String,
+pass: String,
+}
+
+Task {
+\_id: ObjectId(),
+title: String,
+done: boolean,
+
+    owner: { -> relacion
+
+    	\_id: ObjectId(),
+    	name: String,
+    	pass: String,
+    	}
+
+}
+
+Cuando llamemos a tarea

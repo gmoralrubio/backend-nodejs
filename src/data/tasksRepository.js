@@ -12,7 +12,7 @@ const COLLECTION = 'tasks'
 // obtenemos las tareas de la DB
 export async function getTasks() {
 	// Usamos el modelo de mongoose
-	const result = Task.find({})
+	const result = await Task.find({})
 	return result
 }
 
@@ -120,7 +120,7 @@ export async function deleteTask(taskId) {
 	// 	_id: new ObjectId(taskId),
 	// })
 
-	const deleteResult = Task.findByIdAndDelete(taskId)
+	const deleteResult = await Task.findByIdAndDelete(taskId)
 
 	return deleteResult
 }
