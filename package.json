@@ -1,39 +1,40 @@
 {
-  "name": "backend-nodejs",
-  "version": "1.0.0",
-  "description": "Backend NodeJs",
-  "homepage": "https://github.com/gmoralrubio/backend-nodejs#readme",
-  "bugs": {
-    "url": "https://github.com/gmoralrubio/backend-nodejs/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gmoralrubio/backend-nodejs.git"
-  },
-  "license": "ISC",
-  "author": "",
-  "type": "module",
-  "main": "src/app.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "example:hello": "node examples/01-hola-node/index.js",
-    "example:callstack": "node examples/02-call-stack/index.js",
-    "example:async": "node examples/03-asincronia/index.js",
-    "example:http": "nodemon examples/04-http/server.js",
-    "dev": "node --watch --env-file=.env src/bin/www.js",
-    "test:database": "node --env-file=.env src/lib/database.js"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.14"
-  },
-  "dependencies": {
-    "ejs": "^5.0.2",
-    "express": "^5.2.1",
-    "mongodb": "^7.1.1",
-    "mongoose": "^9.4.1",
-    "morgan": "^1.10.1"
-  }
+	"name": "backend-nodejs",
+	"version": "1.0.0",
+	"description": "Backend NodeJs",
+	"homepage": "https://github.com/gmoralrubio/backend-nodejs#readme",
+	"bugs": {
+		"url": "https://github.com/gmoralrubio/backend-nodejs/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gmoralrubio/backend-nodejs.git"
+	},
+	"license": "ISC",
+	"author": "",
+	"type": "module",
+	"main": "src/app.js",
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"example:hello": "node examples/01-hola-node/index.js",
+		"example:callstack": "node examples/02-call-stack/index.js",
+		"example:async": "node examples/03-asincronia/index.js",
+		"example:http": "nodemon examples/04-http/server.js",
+		"dev": "node --watch --env-file=.env src/bin/www.js",
+		"test:database": "node --env-file=.env src/lib/database.js",
+		"seed:database": "node --env-file=.env src/scripts/seed-db.js"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.14"
+	},
+	"dependencies": {
+		"ejs": "^5.0.2",
+		"express": "^5.2.1",
+		"mongodb": "^7.1.1",
+		"mongoose": "^9.4.1",
+		"morgan": "^1.10.1"
+	}
 }

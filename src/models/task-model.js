@@ -1,5 +1,6 @@
 // importamos mongoose y el esquema
 import mongoose, { Schema } from 'mongoose'
+import { MODELS } from './models.js'
 
 // Un modelo de mongoose se compone de dos piezas
 // Un esquema, que es la estructura y un modelo, que es el que se conecta a la base de datos
@@ -17,6 +18,11 @@ const taskSchema = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		// Relacionamos Task con User
+		owner: {
+			type: Schema.Types.ObjectId, // indicamos que es un _id para la relacion
+			ref: MODELS.USER, // referenciamos a user
+		},
 	},
 	{ timestamps: true },
 )
@@ -27,4 +33,4 @@ const taskSchema = new Schema(
 // Del esquema hacemos un modelo
 // Este es el fichero que usaremos cuando queramos usar las tareas
 // Nos aseguramos que solo se instancie una vez
-export const Task = mongoose.models.Task || mongoose.model('Task', taskSchema)
+export const Task = mongoose.models.Task || mongoose.model(MODELS.TASK, taskSchema)

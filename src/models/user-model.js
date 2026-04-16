@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import { MODELS } from './models.js'
 
 // name, email, password
 const userSchema = new Schema(
@@ -19,4 +20,4 @@ const userSchema = new Schema(
 	{ timestamps: true },
 )
 
-export const User = mongoose.models.User || mongoose.model('User', userSchema)
+export const User = mongoose.models.User || mongoose.model(MODELS.USER, userSchema)
