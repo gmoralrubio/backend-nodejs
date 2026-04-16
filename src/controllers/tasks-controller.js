@@ -51,6 +51,7 @@ export async function createTaskController(req, res, next) {
 export async function tasksPageController(req, res, next) {
 	const pendingTasks = await countPendingTasks()
 	const tasks = await getTasks()
+	console.log(tasks)
 
 	// Hay que usar el middleware app.use(express.urlencoded({ extended: true }))
 	const status = req.query.status ?? 'all'

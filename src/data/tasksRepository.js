@@ -1,6 +1,7 @@
 // Importamos ObjectId, de un string nos devuelve un objeto id de mongo
 import { ObjectId } from 'mongodb'
 import { Task } from '../models/task-model.js'
+import { User } from '../models/user-model.js'
 
 const dbClient = {}
 
@@ -12,7 +13,10 @@ const COLLECTION = 'tasks'
 // obtenemos las tareas de la DB
 export async function getTasks() {
 	// Usamos el modelo de mongoose
+	// Con populate('owner') rellena los datos de owner en task
+	// Tenemos que importar tambien el esquema de User
 	const result = await Task.find({})
+	// .populate('owner')
 	return result
 }
 

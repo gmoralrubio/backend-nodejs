@@ -16,6 +16,7 @@ const userSchema = new Schema(
 		},
 		password: {
 			type: String, // Guardar encriptado con bcrypt
+			select: false, // No obtiene la password a no ser que lo pidamos explicitamente en la query
 		},
 	},
 	{ timestamps: true },

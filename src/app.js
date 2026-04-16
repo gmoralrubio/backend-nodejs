@@ -8,6 +8,7 @@ import ejs from 'ejs' // importamos el motor de plantillas
 import { pagesRouter } from './routes/pages-routes.js'
 import { utilitiesRouter } from './routes/utilities-routes.js'
 import { tasksRouter } from './routes/tasks-routes.js'
+import { authRouter } from './routes/auth-routes.js'
 
 // Creamos la aplicacion
 const app = express()
@@ -34,6 +35,7 @@ app.set('views', join(appDir, 'views')) // Definimos directorio de vistas
 // Routes
 app.use('/', pagesRouter)
 app.use('/', utilitiesRouter)
+app.use('/', authRouter)
 app.use('/tasks', tasksRouter)
 
 // Handler 404

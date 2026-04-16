@@ -17,5 +17,8 @@
     1. Limpiar la base de datos de test
     2. Crear una estructura minimade Users y de Tasks
 4. Implementar login
-    1. Crear formulario y guardar sesión
-    2. Persistir sesión
+    1. Ruta
+    2. Controlador
+    3. Vista
+    4. Crear formulario y guardar sesión
+    5. Persistir sesión

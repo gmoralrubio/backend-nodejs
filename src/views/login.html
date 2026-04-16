@@ -1,0 +1,29 @@
+<%- include('partials/page-start.html')%>
+  <h1> <%= title %> </h1>
+
+  <section class="card">
+	<section class="card-body">
+		<form action="/login" method="POST">
+			<label for="email">
+				Email
+				<input 
+					type="email"
+					for="email"
+					id="email"
+					placeholder="example@email.com"
+					value="<%= values.email ?? '' %>">
+			</label>
+			<label for="password">
+				Password
+				<input 
+					type="password"
+					for="password"
+					id="password"
+					>
+			</label>
+			<button type="submit">Login</button>
+		</form>
+	</section>
+  </section>
+
+<%- include('partials/page-end.html')%>
