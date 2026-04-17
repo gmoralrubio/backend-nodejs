@@ -1,5 +1,4 @@
 // Exporta funciones que se encargan de gestionar la aplicación
-import { countPendingTasks } from '../data/tasksRepository.js'
 
 export async function homePageController(req, res, next) {
 	// Usamos el render de ejs

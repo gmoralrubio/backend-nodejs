@@ -1,4 +1,3 @@
-import { countPendingTasks } from '../data/tasksRepository.js'
 import { User } from '../models/user-model.js'
 
 export async function loginPageController(req, res, next) {
@@ -40,9 +39,23 @@ export async function loginActionController(req, res, next) {
 	}
 
 	// Tenemos usuario y su pass es correcta
-	// req.session.userId = user._id
+	// Vinculamos el usuario a la session, asi podemos saber quien está logado
 	req.session.userId = user._id
 	console.log(req.session)
 
 	res.redirect('/')
+}
+
+export function logoutActionController(req, res, next) {
+	// req.session es la sesion del usuario
+	// Metodo para regenerar la session vacía
+	req.session.regenerate(err => {
+		// Si falla la regeneracion...
+		if (err) {
+			next(err)
+			return
+		}
+		// La session se ha borrado bien, enviamos al usuario a la home
+		res.redirect('/')
+	})
 }

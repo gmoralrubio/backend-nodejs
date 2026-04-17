@@ -10,7 +10,7 @@ import { utilitiesRouter } from './routes/utilities-routes.js'
 import { tasksRouter } from './routes/tasks-routes.js'
 import { authRouter } from './routes/auth-routes.js'
 import { dataInViews } from './middleware/views-middleware.js'
-import { sessionMiddleware } from './middleware/auth-middleware.js'
+import { sessionInViews, sessionMiddleware } from './middleware/auth-middleware.js'
 
 // Creamos la aplicacion
 const app = express()
@@ -26,6 +26,7 @@ app.use(morgan('tiny'))
 app.use(dataInViews)
 // Auth middlewares
 app.use(sessionMiddleware)
+app.use(sessionInViews)
 
 // Custom middleware para todas las rutas
 // app.use((req, res, next) => {

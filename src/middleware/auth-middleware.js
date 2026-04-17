@@ -5,6 +5,7 @@ import ConnectMongo from 'connect-mongo'
 
 const INACTIVITY_2_DAYS = 1000 * 60 * 60 * 24 * 2
 
+// Crea la session
 export const sessionMiddleware = session({
 	name: 'kc20-nodejs',
 	secret: process.env.SESSION_SECRET || 'secret',
@@ -18,3 +19,9 @@ export const sessionMiddleware = session({
 		mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017',
 	}),
 })
+
+// Almacenamos la sesion de la request en res.locals para usarlo en una vista
+export function sessionInViews(req, res, next) {
+	res.locals.session = req.session
+	next()
+}
