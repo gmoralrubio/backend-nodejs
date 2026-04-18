@@ -1,11 +1,11 @@
 import express from 'express'
 import {
-  tasksPageController,
-  createTaskController,
-  newTaskPageController,
-  taskPageController,
-  editTaskController,
-  deleteTaskController,
+	tasksPageController,
+	createTaskController,
+	newTaskPageController,
+	taskPageController,
+	editTaskController,
+	deleteTaskController,
 } from '../controllers/tasks-controller.js'
 
 export const tasksRouter = express.Router()
@@ -18,9 +18,9 @@ export const tasksRouter = express.Router()
 //   DELETE /id (eliminar una) //! /delete/id (evitar)
 
 // CRUD de Tareas
-
 // C:
 // Creamos ruta
+
 tasksRouter.get('/new', newTaskPageController)
 tasksRouter.post('/', createTaskController)
 

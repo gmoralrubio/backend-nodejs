@@ -10,7 +10,7 @@ import { utilitiesRouter } from './routes/utilities-routes.js'
 import { tasksRouter } from './routes/tasks-routes.js'
 import { authRouter } from './routes/auth-routes.js'
 import { dataInViews } from './middleware/views-middleware.js'
-import { sessionInViews, sessionMiddleware } from './middleware/auth-middleware.js'
+import { guard, sessionInViews, sessionMiddleware } from './middleware/auth-middleware.js'
 
 // Creamos la aplicacion
 const app = express()
@@ -43,7 +43,7 @@ app.set('views', join(appDir, 'views')) // Definimos directorio de vistas
 app.use('/', pagesRouter)
 app.use('/', utilitiesRouter)
 app.use('/', authRouter)
-app.use('/tasks', tasksRouter)
+app.use('/tasks', guard, tasksRouter)
 
 // Handler 404
 app.use((req, res) => {

@@ -20,6 +20,13 @@ export async function getTasks() {
 	return result
 }
 
+// Creamos un método para obtener las tareas de un usuario concreto
+export async function getTasksByUser(userId) {
+	return Task.find({
+		owner: userId,
+	})
+}
+
 export async function countPendingTasks() {
 	// const tasks = await getTasks()
 	// return tasks.filter(task => task.done === false).length
@@ -73,7 +80,8 @@ export async function addNewTask(task) {
 	return newTask
 }
 
-export async function updateTask(taskId, updatedTask) {
+// Verificamos que la tarea a actualizar sea del usuario
+export async function updateTask(taskId, ownerId, updatedTask) {
 	// const tasks = await getTasks()
 	// const taskIdx = tasks.findIndex(i => i.id === taskId)
 
@@ -96,19 +104,33 @@ export async function updateTask(taskId, updatedTask) {
 	// 	},
 	// )
 
-	// findByIdAndUpdate(filter, update, options)
-	// Le pasamos el id y un update query
-	const task = await Task.findByIdAndUpdate(taskId, {
-		$set: {
-			title: updatedTask.title,
-			done: updatedTask.done,
+	// Solo filtra por taskId
+	// const task = await Task.findByIdAndUpdate(taskId, {
+	// 	$set: {
+	// 		title: updatedTask.title,
+	// 		done: updatedTask.done,
+	// 	},
+	// })
+
+	// Le pasamos el un filtro (id tarea y id owner) y un update query
+	const task = await Task.findOneAndUpdate(
+		{
+			// Filtramos por tarea y owner
+			_id: taskId,
+			owner: ownerId,
 		},
-	})
+		{
+			$set: {
+				title: updatedTask.title,
+				done: updatedTask.done,
+			},
+		},
+	)
 
 	return task
 }
 
-export async function deleteTask(taskId) {
+export async function deleteTask(taskId, ownerId) {
 	// const tasks = await getTasks()
 	// const taskIdx = tasks.findIndex(i => i.id === taskId)
 	// if (taskIdx === -1) {
@@ -124,7 +146,13 @@ export async function deleteTask(taskId) {
 	// 	_id: new ObjectId(taskId),
 	// })
 
-	const deleteResult = await Task.findByIdAndDelete(taskId)
+	// const deleteResult = await Task.findByIdAndDelete(taskId)
+
+	// Filtramos por tarea y usuario, no solo por tarea
+	const deleteResult = await Task.findOneAndDelete({
+		_id: taskId,
+		owner: ownerId,
+	})
 
 	return deleteResult
 }

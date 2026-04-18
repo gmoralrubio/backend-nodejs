@@ -6,7 +6,11 @@
 		<% if(errorMessage) { %>
 			<span> <%= errorMessage %> </span>
 		<%}%>
-		<form action="/login" method="POST">
+		<!-- No ponemos action, ya que si rellenamos action, 
+		 la url es estrictamente esa, impiediendo hacer una redireccion-->
+		<!-- Si no ponemos action, el formulario coge la url del navegador.
+		 Query param incluida, pudiendo hacer la redireccion -->
+		<form method="POST">
 			<label for="email">
 				Email
 				<input 

@@ -8,6 +8,9 @@ export async function loginPageController(req, res, next) {
 }
 
 export async function loginActionController(req, res, next) {
+	// almacenamos la url de redirect en caso de que la tenga
+	// usamos req.query, que es un query param (?redirect=)
+	const redirectUrl = req.query.redirect
 	if (
 		!req.body.email ||
 		req.body.email === '' ||
@@ -43,7 +46,7 @@ export async function loginActionController(req, res, next) {
 	req.session.userId = user._id
 	console.log(req.session)
 
-	res.redirect('/')
+	res.redirect(redirectUrl || '/')
 }
 
 export function logoutActionController(req, res, next) {

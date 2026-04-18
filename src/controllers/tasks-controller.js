@@ -1,10 +1,9 @@
 import {
-	getTasks,
-	countPendingTasks,
 	addNewTask,
 	updateTask,
 	deleteTask,
 	getTask,
+	getTasksByUser,
 } from '../data/tasksRepository.js'
 
 export async function newTaskPageController(req, res, next) {
@@ -19,6 +18,9 @@ export async function newTaskPageController(req, res, next) {
 
 export async function createTaskController(req, res, next) {
 	const title = 'Crear nueva tarea'
+
+	const userId = req.session.userId
+
 	// Si el usuario no mete titulo...
 	if (!req.body.title || req.body.title === '') {
 		const errorMessage = 'El título es obligatorio'
@@ -36,6 +38,7 @@ export async function createTaskController(req, res, next) {
 	const newTask = {
 		title: req.body.title,
 		done: req.body.done === 'on' ? true : false, //req.body.done!!
+		owner: userId, // creamos la tarea con un owner
 	}
 	const createdTask = await addNewTask(newTask)
 
@@ -44,7 +47,10 @@ export async function createTaskController(req, res, next) {
 }
 
 export async function tasksPageController(req, res, next) {
-	const tasks = await getTasks()
+	// Filtramos las tareas para que solo aparezcan las del usuario logado,
+	// no las de todos los usuarios
+	const userId = req.session.userId
+	const tasks = await getTasksByUser(userId)
 
 	// Hay que usar el middleware app.use(express.urlencoded({ extended: true }))
 	const status = req.query.status ?? 'all'
@@ -110,9 +116,13 @@ export async function editTaskController(req, res, next) {
 		})
 		return
 	}
+
+	// Verificar de que usuario es la tarea
+	const userId = req.session.userId
+
 	// Actualizar la tarea
-	// le pasamos el nuevo objeto de tarea a sustituir, con el id
-	await updateTask(taskId, {
+	// le pasamos el nuevo objeto de tarea a sustituir, con el id y el id del owner
+	await updateTask(taskId, userId, {
 		id: taskId,
 		title: req.body.title,
 		done: req.body.done === 'on' ? true : false, //req.body.done!!
@@ -132,7 +142,9 @@ export async function deleteTaskController(req, res, next) {
 		return
 	}
 
-	const newTasks = await deleteTask(taskId)
+	const userId = req.session.userId
+
+	const newTasks = await deleteTask(taskId, userId)
 
 	// Devolvemos la nueva lista de tareas
 	res.json(newTasks)

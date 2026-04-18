@@ -5,6 +5,22 @@ import ConnectMongo from 'connect-mongo'
 
 const INACTIVITY_2_DAYS = 1000 * 60 * 60 * 24 * 2
 
+// Hay que evitar que un usuario no logado pueda acceder a urls privadas
+// Este middleware hay que usarlo de manera específica, no puede afectar a todas las rutas
+export function guard(req, res, next) {
+	// Si el usuario intenta ir a una url y no está logado, le vamos a redirigir al login,
+	// guardando la url a la que quería ir para que, en caso de lagarse, mandarle allí
+	const redirectUrl = `/login?redirect=${encodeURIComponent(req.originalUrl)}`
+
+	if (!req.session.userId) {
+		// No hay login
+		res.redirect(redirectUrl) // redirigimos a login
+		return
+	}
+	// Si si tienes un usuario, sigues
+	next()
+}
+
 // Crea la session
 export const sessionMiddleware = session({
 	name: 'kc20-nodejs',
