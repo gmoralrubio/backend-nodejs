@@ -21,15 +21,12 @@ export async function createTaskController(req, res, next) {
 
 	const userId = req.session.userId
 
-	// Si el usuario no mete titulo...
 	if (!req.body.title || req.body.title === '') {
 		const errorMessage = 'El título es obligatorio'
-		// El usuario tiene que acabar de insertar los datos
-		// Devolvemos el formulario de nuevo
+
 		res.render('task.html', {
 			title,
 			errorMessage,
-			// si nos ha pasado el formulario incompleto, devolvemos todo el body para pintar los valores que si nos envió
 			values: req.body,
 		})
 		return
@@ -37,22 +34,18 @@ export async function createTaskController(req, res, next) {
 
 	const newTask = {
 		title: req.body.title,
-		done: req.body.done === 'on' ? true : false, //req.body.done!!
-		owner: userId, // creamos la tarea con un owner
+		done: req.body.done === 'on' ? true : false,
+		owner: userId,
 	}
 	const createdTask = await addNewTask(newTask)
 
-	// Redirecciona la peticion
 	res.redirect('/tasks/')
 }
 
 export async function tasksPageController(req, res, next) {
-	// Filtramos las tareas para que solo aparezcan las del usuario logado,
-	// no las de todos los usuarios
 	const userId = req.session.userId
 	const tasks = await getTasksByUser(userId)
 
-	// Hay que usar el middleware app.use(express.urlencoded({ extended: true }))
 	const status = req.query.status ?? 'all'
 	let filteredTasks = tasks
 
@@ -70,19 +63,14 @@ export async function tasksPageController(req, res, next) {
 
 export async function taskPageController(req, res, next) {
 	const title = 'Detalle de tarea'
-	// Extraemos los parametros de la url de la peticion
 	const taskId = req.params.taskId
-	// Obtener la tarea
 	const task = await getTask(taskId)
-	console.log(task)
 
 	if (!task) {
-		// Devolver 404
 		next()
 		return
 	}
 
-	// Pasar los datos a la plantilla
 	res.render('task.html', {
 		title,
 		errorMessage: null,
@@ -92,23 +80,20 @@ export async function taskPageController(req, res, next) {
 
 export async function editTaskController(req, res, next) {
 	const title = 'Detalle de tarea'
-	// Obtener la tarea
 	const taskId = req.params.taskId
 	const task = await getTask(taskId)
+
 	if (!task) {
-		// Devolver 404
 		next()
 		return
 	}
-	// Verificar datos
+
 	if (!req.body.title || req.body.title === '') {
 		const errorMessage = 'El título es obligatorio'
-		// El usuario tiene que acabar de insertar los datos
-		// Devolvemos el formulario de nuevo
+
 		res.render('task.html', {
 			title,
 			errorMessage,
-			// Devolvemos todo el body junto con el id
 			values: {
 				id: taskId,
 				...req.body,
@@ -117,27 +102,22 @@ export async function editTaskController(req, res, next) {
 		return
 	}
 
-	// Verificar de que usuario es la tarea
 	const userId = req.session.userId
 
-	// Actualizar la tarea
-	// le pasamos el nuevo objeto de tarea a sustituir, con el id y el id del owner
 	await updateTask(taskId, userId, {
 		id: taskId,
 		title: req.body.title,
-		done: req.body.done === 'on' ? true : false, //req.body.done!!
+		done: req.body.done === 'on' ? true : false,
 	})
 
-	// Devolver algo -> redirect
 	res.redirect('/tasks')
 }
 
 export async function deleteTaskController(req, res, next) {
-	// Obtener la tarea
 	const taskId = req.params.taskId
 	const task = await getTask(taskId)
+
 	if (!task) {
-		// Devolver 404
 		next()
 		return
 	}
@@ -146,6 +126,5 @@ export async function deleteTaskController(req, res, next) {
 
 	const newTasks = await deleteTask(taskId, userId)
 
-	// Devolvemos la nueva lista de tareas
 	res.json(newTasks)
 }

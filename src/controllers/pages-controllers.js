@@ -1,11 +1,4 @@
-// Exporta funciones que se encargan de gestionar la aplicación
-
 export async function homePageController(req, res, next) {
-	// Usamos el render de ejs
-	// Cualquier ruta que le pasemos a render es relativa a views
-	// Como segundo parametro recibe el contexto de la plantilla
-	console.log('Session: ', req.session)
-
 	res.render('index.html', {
 		title: 'Servidor HTTP básico',
 		content:

@@ -18,9 +18,8 @@
   <nav>
     <a href="/">Home</a>
     <a href="/health">Health</a>
-	<!-- Session existe siempre, hay que checkear si tiene un usuario vinculado (userId)  -->
+
 	<% if(session.userId) { %>
-		<!-- Las tareas solo las puede crear y listar un usuario -->
 		<a href="/tasks">Tasks (<%= pendingTasks %>)</a>
 		<a href="/tasks/new">Nueva tarea</a>
 		<a href="/logout">Logout</a>

@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 
 import express from 'express'
 import morgan from 'morgan'
-import ejs from 'ejs' // importamos el motor de plantillas
+import ejs from 'ejs'
 
 import { pagesRouter } from './routes/pages-routes.js'
 import { utilitiesRouter } from './routes/utilities-routes.js'
@@ -12,32 +12,22 @@ import { authRouter } from './routes/auth-routes.js'
 import { dataInViews } from './middleware/views-middleware.js'
 import { guard, sessionInViews, sessionMiddleware } from './middleware/auth-middleware.js'
 
-// Creamos la aplicacion
 const app = express()
-const appDir = dirname(fileURLToPath(import.meta.url)) // url del archivo actual
-// console.log(appDir)
-// console.log(import.meta.url) // Lleva el file//
+const appDir = dirname(fileURLToPath(import.meta.url))
 
 // Global middlewares
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(join(appDir, '../public'))) // Crea la ruta a /public
+app.use(express.static(join(appDir, '../public')))
 app.use(morgan('tiny'))
-// Middleware para los datos en vistas
 app.use(dataInViews)
 // Auth middlewares
 app.use(sessionMiddleware)
 app.use(sessionInViews)
 
-// Custom middleware para todas las rutas
-// app.use((req, res, next) => {
-//   console.log('Nueva Petición!')
-//   next()
-// })
-
 // Configuracion del motor de plantillas
-app.set('view engine', 'html') // Definimos el motor de vistas
-app.engine('html', ejs.renderFile) // Definimos el motor como html de ejs
-app.set('views', join(appDir, 'views')) // Definimos directorio de vistas
+app.set('view engine', 'html')
+app.engine('html', ejs.renderFile)
+app.set('views', join(appDir, 'views'))
 
 // Routes
 app.use('/', pagesRouter)
@@ -50,5 +40,4 @@ app.use((req, res) => {
 	res.status(404).send('Resource not found')
 })
 
-// Exportamos la app que importaremos en www.js
 export default app
