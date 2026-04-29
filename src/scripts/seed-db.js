@@ -5,7 +5,7 @@ import { connectToDB } from '../lib/database.js'
 console.log('Init SeedDB')
 
 // Conectamos a DB
-const connection = await await connectToDB()
+const connection = await connectToDB()
 
 console.log(`Connected to MongoDB: ${connection.name}`)
 
